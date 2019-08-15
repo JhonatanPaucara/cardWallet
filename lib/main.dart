@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ui/myhomepage.dart';
+import 'ui/myHomePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Card Wallet'),
+      home: MyHomePage(),
     );
   }
 }

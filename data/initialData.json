@@ -1,0 +1,47 @@
+{
+    "cardResults": [{
+            "cardName": "Jhonatan Paucara",
+            "cardNumber": "1234123412341234",
+            "cardMonth": "11",
+            "cardYear": "2025",
+            "cardCvv": "123",
+            "cardColor": null,
+            "cardType": "CREDIT",
+            "cardBank": "BCP",
+            "cardCompany": "visa"
+        },
+        {
+            "cardName": "David Paucara",
+            "cardNumber": "1234123412341234",
+            "cardMonth": "11",
+            "cardYear": "2025",
+            "cardCvv": "123",
+            "cardColor": null,
+            "cardType": "CREDIT",
+            "cardBank": "BBVA",
+            "cardCompany": "visa"
+        },
+        {
+            "cardName": "Lidia Prado",
+            "cardNumber": "1234123412341234",
+            "cardMonth": "11",
+            "cardYear": "2025",
+            "cardCvv": "123",
+            "cardColor": null,
+            "cardType": "DEBIT",
+            "cardBank": "BCP",
+            "cardCompany": "mastercard"
+        },
+        {
+            "cardName": "Jenny Pirca",
+            "cardNumber": "1234123412341234",
+            "cardMonth": "11",
+            "cardYear": "2025",
+            "cardCvv": "123",
+            "cardColor": null,
+            "cardType": "DEBIT",
+            "cardBank": "BBVA",
+            "cardCompany": "mastercard"
+        }
+    ]
+}
