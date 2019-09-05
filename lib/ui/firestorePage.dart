@@ -3,6 +3,7 @@ import '../helpers/cardDrawer.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import '../helpers/cardColors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../ui/cardType.dart';
 
 class FirestorePage extends StatelessWidget {
   @override
@@ -16,7 +17,10 @@ class FirestorePage extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.add),
               color: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CardType()));
+              },
             ),
           ],
         ),
@@ -96,7 +100,7 @@ Widget cardFrontList(DocumentSnapshot cardModel, int index) {
       Padding(
           padding: EdgeInsets.only(top: 20.0, right: 30.0),
           child: Image(
-            image: (cardModel['company'] == 'visa')
+            image: (cardModel['company'] == 'VISA')
                 ? AssetImage('assets/visa.png')
                 : AssetImage('assets/mastercard.png'),
             width: 50.0,
@@ -105,7 +109,7 @@ Widget cardFrontList(DocumentSnapshot cardModel, int index) {
       Padding(
         padding: EdgeInsets.only(right: 30.0),
         child: Text(
-          cardModel['type'],
+          cardModel['type'].toString().toUpperCase(),
           style: TextStyle(
               color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.w400),
         ),
@@ -168,13 +172,23 @@ Widget cardFrontList(DocumentSnapshot cardModel, int index) {
     ),
   );
   final _cardOwner = Padding(
-    padding: EdgeInsets.only(top: 15.0, left: 50.0),
-    child: Text(cardModel['name'],
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 18.0,
-        )),
-  );
+      padding: EdgeInsets.only(top: 15.0, left: 50.0, right: 30.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(cardModel['name'].toString().toUpperCase(),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              )),
+          Image(
+            image: (cardModel['bank'] == 'BCP')
+                ? AssetImage('assets/bcp.png')
+                : AssetImage('assets/bbva.png'),
+            width: 50.0,
+          )
+        ],
+      ));
 
   return Container(
     decoration: BoxDecoration(
