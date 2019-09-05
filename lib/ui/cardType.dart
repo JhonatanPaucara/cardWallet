@@ -79,6 +79,7 @@ class CardType extends StatelessWidget {
         elevation: 1.0,
         onPressed: () {
           String _cardType = btnName.split(" ")[0];
+          Navigator.pop(context);
           Navigator.push(
               context,
               MaterialPageRoute(

@@ -111,22 +111,6 @@ class _NewCardDataState extends State<NewCardData> {
                       WhitelistingTextInputFormatter(RegExp("[^0-9]")),
                     ],
                     decoration: InputDecoration(
-                        labelText: 'Type',
-                        hintText: 'DEBIT o CREDIT',
-                        prefixIcon: Icon(Icons.card_membership)),
-                    validator: (cardType) {
-                      if (cardType == '') {
-                        return 'Enter your card type';
-                      }
-                      _newCard.cardType = cardType.toUpperCase();
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter(RegExp("[^0-9]")),
-                    ],
-                    decoration: InputDecoration(
                         labelText: 'Bank',
                         hintText: 'BCP, BBVA, ETC',
                         prefixIcon: Icon(Icons.account_balance)),
@@ -142,6 +126,7 @@ class _NewCardDataState extends State<NewCardData> {
                     inputFormatters: <TextInputFormatter>[
                       WhitelistingTextInputFormatter(RegExp("[^a-zA-Z]")),
                     ],
+                    keyboardType: TextInputType.datetime,
                     decoration: InputDecoration(
                         labelText: 'Exp. Date',
                         hintText: '07/19',
@@ -158,9 +143,11 @@ class _NewCardDataState extends State<NewCardData> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: RaisedButton(
-                      color: _formKey.currentState.validate()
-                          ? Colors.lightBlue
-                          : Colors.grey,
+                      color: _formKey.currentState == null
+                          ? Colors.grey
+                          : (_formKey.currentState.validate()
+                              ? Colors.lightBlue
+                              : Colors.grey),
                       onPressed: () {
                         // Validate returns true if the form is valid, or false
                         // otherwise.
@@ -168,18 +155,22 @@ class _NewCardDataState extends State<NewCardData> {
                           // If the form is valid, display a Snackbar.
                           print('Processing Data ${_newCard.toString()}');
                           Firestore.instance
-                              .collection('Cards')
-                              .document()
-                              .setData({
-                            'bank': _newCard.cardBank,
-                            'company': _newCard.cardCompany,
-                            'year': _newCard.cardYear,
-                            'month': _newCard.cardMonth,
-                            'cvv': '123',
-                            'number': _newCard.cardNumber,
-                            'type': _newCard.cardType,
-                            'name': _newCard.cardName,
+                              .runTransaction((Transaction tx) async {
+                            await Firestore.instance
+                                .collection('Cards')
+                                .document()
+                                .setData({
+                              'bank': _newCard.cardBank,
+                              'company': _newCard.cardCompany,
+                              'year': _newCard.cardYear,
+                              'month': _newCard.cardMonth,
+                              'cvv': '123',
+                              'number': _newCard.cardNumber,
+                              'type': newCardType.toUpperCase(),
+                              'name': _newCard.cardName,
+                            });
                           });
+                          Navigator.pop(context);
                         } else {
                           print('Wrong Data ${_newCard.cardYear}');
                         }
